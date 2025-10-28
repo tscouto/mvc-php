@@ -7,5 +7,10 @@
             "email": "tiago.dscouto@hotmail.com"
         }
     ],
+    "autoload": {
+        "psr-4": {
+            "App\\":"app/"
+        }
+    },
     "require": {}
 }
