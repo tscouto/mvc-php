@@ -1,4 +1,6 @@
 <?php
+namespace App\core;
+
 
 class Controller
 {
@@ -7,7 +9,7 @@ class Controller
         extract($viewData);
         $viewFile = __DIR__ . '/../view/' . $view . '.php';
         if (!file_exists($viewFile)) {
-            throw new Exception("View file not found: " .$viewFile);
+            throw new \Exception("View file not found: " .$viewFile);
         
         }
         require_once $viewFile;

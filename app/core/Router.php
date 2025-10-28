@@ -1,8 +1,9 @@
 <?php
-require_once('../app/controllers/HomeController.php');
-require_once('../app/controllers/NoticiasController.php');
-require_once('../app/controllers/errors/HttpErrorController.php');
+namespace App\core;
+use App\controllers\errors\HttpErrorController;
 
+
+// 
 class Router
 {
     public function dispatch($url)
@@ -10,7 +11,9 @@ class Router
         $url = trim($url, '/');
         $parts = $url ? explode('/', $url) : [];
         $controllerName = $parts[0] ?? 'Home';
-        $controllerName = ucfirst($controllerName) . 'Controller';
+        // dd($controllerName);
+
+        $controllerName = 'App\Controllers\\' .ucfirst($controllerName) . 'Controller';
         if (!class_exists($controllerName)) {
             $controller = new HttpErrorController();
             $controller->NotFound();
