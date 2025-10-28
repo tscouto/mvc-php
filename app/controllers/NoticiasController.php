@@ -7,4 +7,8 @@ class NoticiasController extends Controller
     {
         $this->view('noticias/index');
     }
+
+    public function noticia($id = []){
+        $this->view("noticias/noticia", ['id' => $id]);
+    }
 }

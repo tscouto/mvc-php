@@ -1,0 +1,11 @@
+{
+    "name": "tiago/mvc",
+    "description": "MVC Structure",
+    "authors": [
+        {
+            "name": "tscouto",
+            "email": "tiago.dscouto@hotmail.com"
+        }
+    ],
+    "require": {}
+}

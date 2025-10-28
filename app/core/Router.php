@@ -1,7 +1,7 @@
 <?php
-require_once ('../app/controllers/HomeController.php');
-require_once ('../app/controllers/NoticiasController.php');
-require_once ('../app/controllers/NotFoundController.php');
+require_once('../app/controllers/HomeController.php');
+require_once('../app/controllers/NoticiasController.php');
+require_once('../app/errors/controllers/HttpErrorController.php');
 
 class Router
 {
@@ -11,13 +11,22 @@ class Router
         $parts = $url ? explode('/', $url) : [];
         $controllerName = $parts[0] ?? 'Home';
         $controllerName = ucfirst($controllerName) . 'Controller';
-        if(!class_exists($controllerName)){
-            $controllerName = 'NotFoundController';
+        if (!class_exists($controllerName)) {
+            $controller = new HttpErrorController();
+            $controller->NotFound();
+            return;
         }
+
         $controller = new $controllerName();
-        $controller->index();
-        // echo 'url: ' .var_dump($parts);
-        // echo '<hr>';
-        // echo 'controller: ' .var_dump($controllerName);
+        $actionName = $parts[1] ?? 'Index';
+
+        if (!method_exists($controller, $actionName)) {
+
+            $controller = new HttpErrorController();
+            $controller->NotFound();
+            return;
+        }
+        $params = array_slice($parts, 2);
+        call_user_func_array([$controller, $actionName], $params);
     }
 }
